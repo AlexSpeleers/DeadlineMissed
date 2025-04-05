@@ -1,5 +1,6 @@
 ﻿using DeadlineMissed.Application.DTOs;
 using DeadlineMissed.Application.Services;
+using DeadlineMissed.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeadlineMissed.Api.Controllers
@@ -10,10 +11,7 @@ namespace DeadlineMissed.Api.Controllers
     {
         private readonly ITodoTaskService _todoTaskService;
 
-        public TasksController(ITodoTaskService todoTaskService)
-        {
-            _todoTaskService = todoTaskService;
-        }
+        public TasksController(ITodoTaskService todoTaskService) => _todoTaskService = todoTaskService;
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -34,6 +32,27 @@ namespace DeadlineMissed.Api.Controllers
         {
             await _todoTaskService.AddTaskAsync(todoTaskDto);
             return CreatedAtAction(nameof(GetById), new { id = todoTaskDto.Id }, todoTaskDto);
+        }
+
+        [HttpPost("{id}/assign/{userId}")]
+        public async Task<IActionResult> AssignTask(int id, int userId)
+        {
+            await _todoTaskService.AssignTaskToUserAsync(id, userId);
+            return NoContent();
+        }
+
+        [HttpPost("{id}/unassign/{userId}")]
+        public async Task<IActionResult> UnassignTask(int id, int userId)
+        {
+            await _todoTaskService.UnassignTaskFromUserAsync(id, userId);
+            return NoContent();
+        }
+
+        [HttpPut("{id}/status")]
+        public async Task<IActionResult> UpdateStatus(int id, [FromBody] TodoTaskStatus status)
+        {
+            await _todoTaskService.UpdateTaskStatusAsync(id, status);
+            return NoContent();
         }
     }
 }
