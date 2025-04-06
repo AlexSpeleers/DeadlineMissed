@@ -2,7 +2,9 @@ using DeadlineMissed.TaskService.Application.Services;
 using DeadlineMissed.TaskService.Infrastructure.Data;
 using DeadlineMissed.TaskService.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,12 +16,15 @@ builder.Services.AddHttpClient("UserService", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7044/");
 });
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options => {
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Task Service API", Version = "v1" });
+    c.UseInlineDefinitionsForEnums();
 });
 
 var app = builder.Build();
