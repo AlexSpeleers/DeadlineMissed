@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeadlineMissed.UserService.Domain\DeadlineMissed.UserService.Domain.csproj" />
+    <ProjectReference Include="..\DeadlineMissed.UserService.Infrastructure\DeadlineMissed.UserService.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

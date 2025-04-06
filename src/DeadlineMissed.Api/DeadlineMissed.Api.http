@@ -1,6 +1,0 @@
-@DeadlineMissed.Api_HostAddress = http://localhost:5249
-
-GET {{DeadlineMissed.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

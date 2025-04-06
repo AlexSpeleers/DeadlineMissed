@@ -1,0 +1,6 @@
+@DeadlineMissed.TaskService_HostAddress = http://localhost:5153
+
+GET {{DeadlineMissed.TaskService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
