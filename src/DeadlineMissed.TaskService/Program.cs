@@ -2,7 +2,6 @@ using DeadlineMissed.TaskService.Application.Services;
 using DeadlineMissed.TaskService.Infrastructure.Data;
 using DeadlineMissed.TaskService.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 

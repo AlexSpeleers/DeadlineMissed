@@ -4,7 +4,7 @@ using DeadlineMissed.UserService.Infrastructure.Repositories;
 
 namespace DeadlineMissed.UserService.Application.Services;
 
-public class UserManagementService : IUserService
+public class UserManagementService : IUserManagementService
 {
     private readonly IUserRepository _userRepository;
 
@@ -31,10 +31,10 @@ public class UserManagementService : IUserService
         return new UserDto { Id = user.Id, Username = user.Username, Email = user.Email };
     }
 
-    public async Task AddUserAsync(UserDto userDto)
+    public async Task<int> AddUserAsync(CreateUserDto userDto)
     {
         var user = new User { Username = userDto.Username, Email = userDto.Email };
-        await _userRepository.AddAsync(user);
+        return await _userRepository.AddAsync(user);
     }
     public async Task<List<UserDto>> GetUsersByIdsAsync(List<int> ids)
     {

@@ -8,9 +8,9 @@ namespace DeadlineMissed.UserService.Controllers;
 [ApiController]
 public class UsersController : ControllerBase
 {
-    private readonly IUserService _userService;
+    private readonly IUserManagementService _userService;
 
-    public UsersController(IUserService userService) => _userService = userService;
+    public UsersController(IUserManagementService userService) => _userService = userService;
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
@@ -27,10 +27,16 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] UserDto userDto)
+    public async Task<IActionResult> Create([FromBody] CreateUserDto userDto)
     {
-        await _userService.AddUserAsync(userDto);
-        return CreatedAtAction(nameof(GetById), new { id = userDto.Id }, userDto);
+        var userId = await _userService.AddUserAsync(userDto);
+        var createdUser = new UserDto
+        {
+            Id = userId,
+            Username = userDto.Username,
+            Email = userDto.Email
+        };
+        return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, createdUser);
     }
 
     [HttpGet("by-ids")]

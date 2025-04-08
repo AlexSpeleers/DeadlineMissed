@@ -2,10 +2,10 @@
 
 namespace DeadlineMissed.UserService.Application.Services;
 
-public interface IUserService
+public interface IUserManagementService
 {
     Task<List<UserDto>> GetAllUsersAsync();
     Task<UserDto> GetUserByIdAsync(int id);
-    Task AddUserAsync(UserDto userDto);
+    Task<int> AddUserAsync(CreateUserDto userDto);
     Task<List<UserDto>> GetUsersByIdsAsync(List<int> ids);
 }
